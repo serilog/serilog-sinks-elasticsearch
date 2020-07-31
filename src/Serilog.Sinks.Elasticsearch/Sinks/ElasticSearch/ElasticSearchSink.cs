@@ -72,7 +72,7 @@ namespace Serilog.Sinks.Elasticsearch
                 var items = result.Body["items"];
                 foreach (var item in items)
                 {
-                    if (item["index"] != null && HasProperty(item["index"], "error") && item["index"]["error"] != null)
+                    if (item["index"] != null && item["index"].ContainsKey("error") && item["index"]["error"] != null)
                     {
                         var e = events.ElementAt(indexer);
                         if (_state.Options.EmitEventFailure.HasFlag(EmitEventFailureHandling.WriteToSelfLog))
