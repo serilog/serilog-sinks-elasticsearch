@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFramework Condition="'$(OS)' != 'Windows_NT'">netcoreapp2.1</TargetFramework>
     <AssemblyName>Serilog.Sinks.Elasticsearch.Tests</AssemblyName>
     <PackageId>Serilog.Sinks.Elasticsearch.Tests</PackageId>
 

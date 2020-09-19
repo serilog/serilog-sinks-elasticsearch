@@ -1,5 +1,5 @@
 version: '{build}'
-image: Visual Studio 2017
+image: Visual Studio 2019
 skip_tags: true
 build_script:
 - ps: ./Build.ps1 
@@ -13,6 +13,7 @@ only_commits:
     - src/Serilog.Sinks.Elasticsearch/
     - src/Serilog.Formatting.Elasticsearch/
     - nuget.config
+    - appveyor.yml
     - Build.ps1
     - assets/
     - appveyor.yml
@@ -31,7 +32,7 @@ deploy:
   artifact: /Serilog.*\.nupkg/
   tag: v$(appveyor_build_version)
 install:
-  - choco install gitversion.portable -y
+  - choco install gitversion.portable -y --pre
 assembly_info:
   patch: false
 before_build:

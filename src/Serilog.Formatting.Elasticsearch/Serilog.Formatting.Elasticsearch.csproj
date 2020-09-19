@@ -4,13 +4,14 @@
     <VersionPrefix>6.0.0</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <Authors>Michiel van Oudheusden, Martijn Laarman, Mogens Heller Grabe, Serilog Contributors</Authors>
-    <TargetFrameworks>net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net45;netstandard1.3;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Serilog.Formatting.Elasticsearch</AssemblyName>
     <AssemblyOriginatorKeyFile>../../assets/Serilog.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PublicSign Condition="'$(OS)' != 'Windows_NT'">true</PublicSign>
     <PackageId>Serilog.Formatting.Elasticsearch</PackageId>
     <PackageTags>serilog;elasticsearch;logging;event;formatting</PackageTags>
     <PackageReleaseNotes>https://github.com/serilog/serilog-sinks-elasticsearch/blob/master/CHANGES.md</PackageReleaseNotes>
@@ -37,8 +38,4 @@
     <DefineConstants>$(DefineConstants);NO_SERIALIZATION</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-version" Version="1.1.0" />
-  </ItemGroup>
-    
 </Project>

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">netcoreapp2.1;net461</TargetFrameworks>
+    <TargetFramework Condition="'$(OS)' != 'Windows_NT'">netcoreapp2.1</TargetFramework>
     <NoWarn>$(NoWarn);xUnit1013</NoWarn>
     <DebugSymbols>True</DebugSymbols>
     <LangVersion>latest</LangVersion>
