@@ -49,7 +49,7 @@ namespace Serilog.Sinks.Elasticsearch.Durable
                     var invalidPayload = GetInvalidPayloadAsync(response, payload, out cleanPayload);
                     if ((cleanPayload?.Any() ?? false) && first)
                     {
-                        await SendPayloadAsync(cleanPayload, false);
+                        return await SendPayloadAsync(cleanPayload, false);
                     }
 
                     return new SentPayloadResult(response, true, invalidPayload);
@@ -99,9 +99,9 @@ namespace Serilog.Sinks.Elasticsearch.Durable
                 var error = itemIndex?["error"];
                 var errorString = $"type: {error?["type"] ?? "Unknown"}, reason: {error?["reason"] ?? "Unknown"}";
 
+                SelfLog.WriteLine($"Received failed ElasticSearch shipping result {status}: {errorString}.");
                 if (int.TryParse(id.Split('_')[0], out int index))
                 {
-                    SelfLog.WriteLine("Received failed ElasticSearch shipping result {0}: {1}. Failed payload : {2}.", status, errorString, payload.ElementAt(index * 2 + 1));
                     badPayload.Add(payload.ElementAt(index * 2));
                     badPayload.Add(payload.ElementAt(index * 2 + 1));
                     if (_cleanPayload != null)
@@ -109,10 +109,6 @@ namespace Serilog.Sinks.Elasticsearch.Durable
                         cleanPayload.Add(payload.ElementAt(index * 2));
                         cleanPayload.Add(_cleanPayload(payload.ElementAt(index * 2 + 1), status, errorString));
                     }
-                }
-                else
-                {
-                    SelfLog.WriteLine($"Received failed ElasticSearch shipping result {status}: {errorString}.");
                 }
             }
 
