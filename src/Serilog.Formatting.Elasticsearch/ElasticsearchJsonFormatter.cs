@@ -197,7 +197,7 @@ namespace Serilog.Formatting.Elasticsearch
             if (_formatStackTraceAsArray)
             {
                 this.WriteMultilineString("StackTrace", stackTrace, ref delim, output);
-                this.WriteMultilineString("RemoteStackTrace", stackTrace, ref delim, output);
+                this.WriteMultilineString("RemoteStackTrace", remoteStackTrace, ref delim, output);
             }
             else
             {
